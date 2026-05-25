@@ -30,12 +30,14 @@ BinaryNode* searchBST(const std::unique_ptr<BinaryNode>& root, int val, int& com
     if (root->data == val){
         return root.get();
     }
-
-    comparsions++;    
+    
+    comparsions++;
     if (val < root->data) {
         return searchBST(root->left, val, comparsions);
+        comparsions++;
     } else {
-        return searchBST(root->right, val, comparsions);         
+        return searchBST(root->right, val, comparsions);
+        comparsions++;      
     }
 }
 
@@ -91,6 +93,13 @@ class SimpleDirectedGraph {
         adjList[from].push_back(to);
     }
 
+    void printDFS(int startVertex) {
+        std::vector<bool> visited(numVertices, false);
+        std::cout << "DFS starting from  " << startVertex << ": ";
+        DFSUtil(startVertex, visited);
+        std::cout << "\n";
+    }
+
     void checkPath(int start, int target) {
         std::vector<bool> visited(numVertices, false);
         bool exist = hasPathUtil(start, target, visited);
@@ -129,6 +138,9 @@ int main() {
     graph.addEdge(6, 5);
     graph.addEdge(6, 7);
     graph.addEdge(7, 5); 
+
+    graph.printDFS(0);
+    graph.printDFS(7);
     
     graph.checkPath(0, 7);
     graph.checkPath(7, 4); 
